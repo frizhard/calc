@@ -41,32 +41,58 @@ public class Calculator implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		createLayout();
+		CalculatorFSM fsm = new CalculatorFSM();
+		
+		createLayout(fsm);
 	}
 	
-	private void createLayout() {
+	private void createLayout(final CalculatorFSM fsm) {
 		final TextBox screenText = new TextBox();
 		screenText.setEnabled(false);
-		final Button clearButton = new Button("C");	// IMPROVE: constants
-		final Button clearEntryButton = new Button("CE");
-		final Button digit7Button = new Button("7");
-		final Button digit8Button = new Button("8");
-		final Button digit9Button = new Button("9");
-		final Button signumButton = new Button("+/-");
-		final Button percentButton = new Button("%");
-		final Button digit4Button = new Button("4");
-		final Button digit5Button = new Button("5");
-		final Button digit6Button = new Button("6");
-		final Button operatorSumButton = new Button("+");
-		final Button operatorSubButton = new Button("-");
-		final Button digit1Button = new Button("1");
-		final Button digit2Button = new Button("2");
-		final Button digit3Button = new Button("3");
-		final Button operatorMulButton = new Button("*");
-		final Button operatorDivButton = new Button("/");
-		final Button digit0Button = new Button("0");
-		final Button dotButton = new Button(",");
-		final Button equalButton = new Button("=");
+		final Button clearButton = new Button(Constants.CommandClear);
+		final Button clearEntryButton = new Button(Constants.CommandClearEntry);
+		final Button digit7Button = new Button(Constants.Digit7);
+		final Button digit8Button = new Button(Constants.Digit8);
+		final Button digit9Button = new Button(Constants.Digit9);
+		final Button signumButton = new Button(Constants.ModifierSignum);
+		final Button percentButton = new Button(Constants.ModifierPercent);
+		final Button digit4Button = new Button(Constants.Digit4);
+		final Button digit5Button = new Button(Constants.Digit5);
+		final Button digit6Button = new Button(Constants.Digit6);
+		final Button operatorSumButton = new Button(Constants.OperatorSum);
+		final Button operatorSubButton = new Button(Constants.OperatorSubtract);
+		final Button digit1Button = new Button(Constants.Digit1);
+		final Button digit2Button = new Button(Constants.Digit2);
+		final Button digit3Button = new Button(Constants.Digit3);
+		final Button operatorMulButton = new Button(Constants.OperatorMultiply);
+		final Button operatorDivButton = new Button(Constants.OperatorDivision);
+		final Button digit0Button = new Button(Constants.Digit0);
+		final Button dotButton = new Button(Constants.ModifierDot);
+		final Button equalButton = new Button(Constants.CommandEqual);
+		
+		clearButton.addClickHandler(clickHandlerWithInput(Constants.CommandClear, fsm));
+		clearEntryButton.addClickHandler(clickHandlerWithInput(Constants.CommandClearEntry, fsm));
+		equalButton.addClickHandler(clickHandlerWithInput(Constants.CommandEqual, fsm));
+		
+		digit0Button.addClickHandler(clickHandlerWithInput(Constants.Digit0, fsm));
+		digit1Button.addClickHandler(clickHandlerWithInput(Constants.Digit1, fsm));
+		digit2Button.addClickHandler(clickHandlerWithInput(Constants.Digit2, fsm));
+		digit3Button.addClickHandler(clickHandlerWithInput(Constants.Digit3, fsm));
+		digit4Button.addClickHandler(clickHandlerWithInput(Constants.Digit4, fsm));
+		digit5Button.addClickHandler(clickHandlerWithInput(Constants.Digit5, fsm));
+		digit6Button.addClickHandler(clickHandlerWithInput(Constants.Digit6, fsm));
+		digit7Button.addClickHandler(clickHandlerWithInput(Constants.Digit7, fsm));
+		digit8Button.addClickHandler(clickHandlerWithInput(Constants.Digit8, fsm));
+		digit9Button.addClickHandler(clickHandlerWithInput(Constants.Digit9, fsm));
+		
+		signumButton.addClickHandler(clickHandlerWithInput(Constants.ModifierSignum, fsm));
+		percentButton.addClickHandler(clickHandlerWithInput(Constants.ModifierPercent, fsm));
+		dotButton.addClickHandler(clickHandlerWithInput(Constants.ModifierDot, fsm));
+		
+		operatorSumButton.addClickHandler(clickHandlerWithInput(Constants.OperatorSum, fsm));
+		operatorSubButton.addClickHandler(clickHandlerWithInput(Constants.OperatorSubtract, fsm));
+		operatorMulButton.addClickHandler(clickHandlerWithInput(Constants.OperatorMultiply, fsm));
+		operatorDivButton.addClickHandler(clickHandlerWithInput(Constants.OperatorDivision, fsm));
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
@@ -91,5 +117,15 @@ public class Calculator implements EntryPoint {
 		RootPanel.get("calc0Container").add(digit0Button);
 		RootPanel.get("calcDotContainer").add(dotButton);
 		RootPanel.get("calcEqualContainer").add(equalButton);
+	}
+	
+	private ClickHandler clickHandlerWithInput(final String input, final CalculatorFSM fsm) {
+		return new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				fsm.feedInput(input);				
+			}
+		};
 	}
 }
