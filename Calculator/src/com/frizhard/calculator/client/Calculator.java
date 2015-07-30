@@ -3,6 +3,7 @@ package com.frizhard.calculator.client;
 import com.frizhard.calculator.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -21,6 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Calculator implements EntryPoint {
+	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
@@ -39,114 +41,55 @@ public class Calculator implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		final Button sendButton = new Button("Send");
-		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
-		final Label errorLabel = new Label();
-
-		// We can add style names to widgets
-		sendButton.addStyleName("sendButton");
+		createLayout();
+	}
+	
+	private void createLayout() {
+		final TextBox screenText = new TextBox();
+		screenText.setEnabled(false);
+		final Button clearButton = new Button("C");	// IMPROVE: constants
+		final Button clearEntryButton = new Button("CE");
+		final Button digit7Button = new Button("7");
+		final Button digit8Button = new Button("8");
+		final Button digit9Button = new Button("9");
+		final Button signumButton = new Button("+/-");
+		final Button percentButton = new Button("%");
+		final Button digit4Button = new Button("4");
+		final Button digit5Button = new Button("5");
+		final Button digit6Button = new Button("6");
+		final Button operatorSumButton = new Button("+");
+		final Button operatorSubButton = new Button("-");
+		final Button digit1Button = new Button("1");
+		final Button digit2Button = new Button("2");
+		final Button digit3Button = new Button("3");
+		final Button operatorMulButton = new Button("*");
+		final Button operatorDivButton = new Button("/");
+		final Button digit0Button = new Button("0");
+		final Button dotButton = new Button(",");
+		final Button equalButton = new Button("=");
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
-
-		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
-
-		// Create the popup dialog box
-		final DialogBox dialogBox = new DialogBox();
-		dialogBox.setText("Remote Procedure Call");
-		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
-		// We can set the id of a widget by accessing its Element
-		closeButton.getElement().setId("closeButton");
-		final Label textToServerLabel = new Label();
-		final HTML serverResponseLabel = new HTML();
-		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.addStyleName("dialogVPanel");
-		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
-		dialogVPanel.add(textToServerLabel);
-		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
-		dialogVPanel.add(serverResponseLabel);
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
-
-		// Add a handler to close the DialogBox
-		closeButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				dialogBox.hide();
-				sendButton.setEnabled(true);
-				sendButton.setFocus(true);
-			}
-		});
-
-		// Create a handler for the sendButton and nameField
-		class MyHandler implements ClickHandler, KeyUpHandler {
-			/**
-			 * Fired when the user clicks on the sendButton.
-			 */
-			public void onClick(ClickEvent event) {
-				sendNameToServer();
-			}
-
-			/**
-			 * Fired when the user types in the nameField.
-			 */
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					sendNameToServer();
-				}
-			}
-
-			/**
-			 * Send the name from the nameField to the server and wait for a response.
-			 */
-			private void sendNameToServer() {
-				// First, we validate the input.
-				errorLabel.setText("");
-				String textToServer = nameField.getText();
-				if (!FieldVerifier.isValidName(textToServer)) {
-					errorLabel.setText("Please enter at least four characters");
-					return;
-				}
-
-				// Then, we send the input to the server.
-				sendButton.setEnabled(false);
-				textToServerLabel.setText(textToServer);
-				serverResponseLabel.setText("");
-				greetingService.greetServer(textToServer,
-						new AsyncCallback<String>() {
-							public void onFailure(Throwable caught) {
-								// Show the RPC error message to the user
-								dialogBox
-										.setText("Remote Procedure Call - Failure");
-								serverResponseLabel
-										.addStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(SERVER_ERROR);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-
-							public void onSuccess(String result) {
-								dialogBox.setText("Remote Procedure Call");
-								serverResponseLabel
-										.removeStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(result);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-						});
-			}
-		}
-
-		// Add a handler to send the name to the server
-		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
+		RootPanel.get("calcScreenContainer").add(screenText);
+		RootPanel.get("calcCContainer").add(clearButton);
+		RootPanel.get("calcCEContainer").add(clearEntryButton);
+		RootPanel.get("calc7Container").add(digit7Button);
+		RootPanel.get("calc8Container").add(digit8Button);
+		RootPanel.get("calc9Container").add(digit9Button);
+		RootPanel.get("calcSignumContainer").add(signumButton);
+		RootPanel.get("calcPercentContainer").add(percentButton);
+		RootPanel.get("calc4Container").add(digit4Button);
+		RootPanel.get("calc5Container").add(digit5Button);
+		RootPanel.get("calc6Container").add(digit6Button);
+		RootPanel.get("calcSumContainer").add(operatorSumButton);
+		RootPanel.get("calcSubContainer").add(operatorSubButton);
+		RootPanel.get("calc1Container").add(digit1Button);
+		RootPanel.get("calc2Container").add(digit2Button);
+		RootPanel.get("calc3Container").add(digit3Button);
+		RootPanel.get("calcMulContainer").add(operatorMulButton);
+		RootPanel.get("calcDivContainer").add(operatorDivButton);
+		RootPanel.get("calc0Container").add(digit0Button);
+		RootPanel.get("calcDotContainer").add(dotButton);
+		RootPanel.get("calcEqualContainer").add(equalButton);
 	}
 }
