@@ -3,15 +3,16 @@ package com.frizhard.calculator.client;
 import java.util.Arrays;
 import java.util.HashSet;
 
-enum InputType {
-	COMMAND,
-	DIGIT,
-	MODIFIER,
-	OPERATOR,
-	UNKNOWN
-}
-
 public class Constants {
+	
+	public enum InputType {
+		COMMAND,
+		DIGIT,
+		MODIFIER,
+		OPERATOR,
+		UNKNOWN
+	}
+	
 	public final static String CommandClear = "C";
 	public final static String CommandClearEntry = "CE";
 	public final static String CommandEqual = "=";
@@ -35,6 +36,9 @@ public class Constants {
 	public final static String OperatorSubtract = "-";
 	public final static String OperatorMultiply = "*";
 	public final static String OperatorDivision = "/";
+	
+	public final static String SignumPositive = "";
+	public final static String SignumNegative = "-";
 	
 	private static final HashSet<String> commands = new HashSet<String>(Arrays.asList(CommandClear, CommandClearEntry, CommandEqual));
 	private static final HashSet<String> digits = new HashSet<String>(Arrays.asList(Digit0, Digit1, Digit2, Digit3, Digit4, Digit5, Digit6, Digit7, Digit8, Digit9));

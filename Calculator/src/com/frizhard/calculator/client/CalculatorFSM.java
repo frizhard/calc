@@ -1,8 +1,12 @@
 package com.frizhard.calculator.client;
 
-public class CalculatorFSM {
+public class CalculatorFSM implements FSM<String> {
 	
 	// TODO: states. 
+	
+	public void reset() {
+		// TODO: Reset state
+	}
 	
 	// TODO: Do something useful with input
 	public void feedInput(String input) {
