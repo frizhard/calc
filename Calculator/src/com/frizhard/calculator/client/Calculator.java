@@ -23,6 +23,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class Calculator implements EntryPoint {
 	
+	private final TextBox screenText = new TextBox();
+	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
@@ -41,13 +43,20 @@ public class Calculator implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		CalculatorFSM fsm = new CalculatorFSM();
+		CalculatorFSM fsm = new CalculatorFSM(new CalculatorOutput() {
+			
+			@Override
+			public void outputDidChangeTo(String output) {
+				// TODO Auto-generated method stub
+				screenText.setText(output);
+			}
+		});
 		
 		createLayout(fsm);
 	}
 	
 	private void createLayout(final CalculatorFSM fsm) {
-		final TextBox screenText = new TextBox();
+		//final TextBox screenText = new TextBox();
 		screenText.setEnabled(false);
 		final Button clearButton = new Button(Constants.CommandClear);
 		final Button clearEntryButton = new Button(Constants.CommandClearEntry);
