@@ -16,6 +16,7 @@ public class Constants {
 	public final static String CommandClear = "C";
 	public final static String CommandClearEntry = "CE";
 	public final static String CommandEqual = "=";
+	public final static String CommandBinary = "B";
 	
 	public final static String Digit0 = "0";
 	public final static String Digit1 = "1";
@@ -43,7 +44,7 @@ public class Constants {
 	public final static String Error = "E";
 	public final static String AritmeticDot = ".";
 	
-	private static final HashSet<String> commands = new HashSet<String>(Arrays.asList(CommandClear, CommandClearEntry, CommandEqual));
+	private static final HashSet<String> commands = new HashSet<String>(Arrays.asList(CommandClear, CommandClearEntry, CommandEqual, CommandBinary));
 	private static final HashSet<String> digits = new HashSet<String>(Arrays.asList(Digit0, Digit1, Digit2, Digit3, Digit4, Digit5, Digit6, Digit7, Digit8, Digit9));
 	private static final HashSet<String> modifiers = new HashSet<String>(Arrays.asList(ModifierSignum, ModifierPercent, ModifierDot));
 	private static final HashSet<String> operators = new HashSet<String>(Arrays.asList(OperatorSum, OperatorSubtract, OperatorMultiply, OperatorDivision));
