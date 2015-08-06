@@ -30,6 +30,10 @@ public class CalculatorFSM implements FSM<String> {
 		}
 	}
 	
+	public String getOutput() {
+		return (output != null) ? new String(output) : null;
+	}
+	
 	public void reset() {
 		accumulated = null;
 		operator = null;

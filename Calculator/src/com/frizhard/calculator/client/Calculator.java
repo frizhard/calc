@@ -1,22 +1,9 @@
 package com.frizhard.calculator.client;
 
-import com.frizhard.calculator.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.util.collect.HashMap;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.form.TextField;
@@ -39,8 +26,8 @@ public class Calculator implements EntryPoint {
 	/**
 	 * Create a remote service proxy to talk to the server-side Greeting service.
 	 */
-	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
+	private final BinaryServiceAsync binaryService = GWT
+			.create(BinaryService.class);
 
 	/**
 	 * This is the entry point method.
@@ -80,6 +67,7 @@ public class Calculator implements EntryPoint {
 		final TextButton operatorDivButton = new TextButton(Constants.OperatorDivision);
 		final TextButton digit0Button = new TextButton(Constants.Digit0);
 		final TextButton dotButton = new TextButton(Constants.ModifierDot);
+		final TextButton binButton = new TextButton(Constants.CommandBinary);
 		final TextButton equalButton = new TextButton(Constants.CommandEqual);
 		
 		clearButton.addSelectHandler(eventHandlerWithInput(Constants.CommandClear, fsm));
@@ -105,6 +93,47 @@ public class Calculator implements EntryPoint {
 		operatorSubButton.addSelectHandler(eventHandlerWithInput(Constants.OperatorSubtract, fsm));
 		operatorMulButton.addSelectHandler(eventHandlerWithInput(Constants.OperatorMultiply, fsm));
 		operatorDivButton.addSelectHandler(eventHandlerWithInput(Constants.OperatorDivision, fsm));
+		
+		binButton.addSelectHandler(new SelectEvent.SelectHandler() {
+			
+			private final TextButton buttons[] = {
+				clearButton, clearEntryButton, digit7Button, digit8Button, digit9Button, signumButton,
+				percentButton, digit4Button, digit5Button, digit6Button, operatorSumButton, operatorSubButton,
+				digit1Button, digit2Button, digit3Button, operatorMulButton, operatorDivButton, 
+				digit0Button, dotButton, binButton, equalButton
+			};
+			
+			private void setButtonsEnabled(boolean enabled) {
+				for (TextButton button : buttons) {
+					button.setEnabled(enabled);
+				}
+			}
+			
+			@Override
+			public void onSelect(SelectEvent event) {
+				fsm.feedInput(Constants.CommandEqual); // flush output
+				
+				String number = fsm.getOutput();
+				if(number != null && !number.equals(Constants.Error)) {
+					setButtonsEnabled(false);
+					
+					binaryService.convertToBinary(number, new AsyncCallback<String>() {
+						
+						@Override
+						public void onSuccess(String result) {
+							screenText.setText(result);
+							setButtonsEnabled(true);
+						}
+						
+						@Override
+						public void onFailure(Throwable caught) {
+							screenText.setText(Constants.Error);
+							setButtonsEnabled(true);
+						}
+					});
+				}
+			}
+		});
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
@@ -128,6 +157,7 @@ public class Calculator implements EntryPoint {
 		RootPanel.get("calcDivContainer").add(operatorDivButton);
 		RootPanel.get("calc0Container").add(digit0Button);
 		RootPanel.get("calcDotContainer").add(dotButton);
+		RootPanel.get("calcBinContainer").add(binButton);
 		RootPanel.get("calcEqualContainer").add(equalButton);
 	}
 	
