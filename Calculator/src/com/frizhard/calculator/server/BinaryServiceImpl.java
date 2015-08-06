@@ -11,14 +11,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class BinaryServiceImpl extends RemoteServiceServlet implements
 		BinaryService {
 
-	private String binarizeNumber(String number) {
-		return "01110011";
-	}
-	
 	@Override
 	public String convertToBinary(String number)
 			throws IllegalArgumentException {
-		String binaryNumber = binarizeNumber(number);
+		BinaryConverter binarizer = new NumericBinaryConverter();
+		String binaryNumber = binarizer.convertNumber(number);
 		
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 		PersistenceManager pm = pmf.getPersistenceManager();
