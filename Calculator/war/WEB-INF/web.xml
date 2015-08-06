@@ -6,20 +6,11 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
   <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.frizhard.calculator.server.GreetingServiceImpl</servlet-class>
-  </servlet>
   
   <servlet>
     <servlet-name>binaryServlet</servlet-name>
     <servlet-class>com.frizhard.calculator.server.BinaryServiceImpl</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/calculator/greet</url-pattern>
-  </servlet-mapping>
   
   <servlet-mapping>
     <servlet-name>binaryServlet</servlet-name>
