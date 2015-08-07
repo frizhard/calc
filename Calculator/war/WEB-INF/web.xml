@@ -17,6 +17,16 @@
     <url-pattern>/calculator/binary</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>recordFetchServlet</servlet-name>
+    <servlet-class>com.frizhard.calculator.server.RecordFetchServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>recordFetchServlet</servlet-name>
+    <url-pattern>/calculator/fetch</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Calculator.html</welcome-file>

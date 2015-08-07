@@ -1,9 +1,20 @@
 package com.frizhard.calculator.client;
 
+import java.util.List;
+
+import com.frizhard.calculator.server.BinaryRequest;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.InlineHTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.sencha.gxt.data.shared.ListStore;
+import com.sencha.gxt.widget.core.client.ListView;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.form.TextField;
@@ -28,6 +39,8 @@ public class Calculator implements EntryPoint {
 	 */
 	private final BinaryServiceAsync binaryService = GWT
 			.create(BinaryService.class);
+	private final RecordFetchServiceAsync fetchService = GWT
+			.create(RecordFetchService.class);
 
 	/**
 	 * This is the entry point method.
@@ -159,6 +172,43 @@ public class Calculator implements EntryPoint {
 		RootPanel.get("calcDotContainer").add(dotButton);
 		RootPanel.get("calcBinContainer").add(binButton);
 		RootPanel.get("calcEqualContainer").add(equalButton);
+		
+		// Fetch records button
+		
+		final RootPanel fetchResultsPanel = RootPanel.get("fetchResultContainer");
+		final HTML recordsLabel = new HTML();
+		fetchResultsPanel.add(recordsLabel);
+		
+		final TextButton fetchRecordsButton = new TextButton("Obtener registros");
+		fetchRecordsButton.addSelectHandler(new SelectEvent.SelectHandler() {
+			
+			@Override
+			public void onSelect(SelectEvent event) {
+				
+				fetchService.fetchRecords(new AsyncCallback<String>() {
+					
+					@SuppressWarnings("serial")
+					@Override
+					public void onSuccess(final String result) {
+						recordsLabel.setHTML(new SafeHtml() {
+							
+							@Override
+							public String asString() {
+								// TODO Auto-generated method stub
+								return result;
+							}
+						});
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						recordsLabel.setText("Error obteniendo registros");
+					}
+				});
+			}
+		});
+		
+		RootPanel.get("fetchButtonContainer").add(fetchRecordsButton);
 	}
 	
 	private SelectEvent.SelectHandler eventHandlerWithInput(final String input, final CalculatorFSM fsm) {

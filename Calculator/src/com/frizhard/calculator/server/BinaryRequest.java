@@ -28,4 +28,16 @@ public class BinaryRequest {
 		this.binaryString = binaryString;
 		this.requestDate = new Date();
 	}
+	
+	public Date getRequestDate() {
+		return requestDate;
+	}
+	
+	public String getRequestedNumber() {
+		return requestedNumber;
+	}
+	
+	public String getBinaryString() {
+		return binaryString;
+	}
 }
