@@ -7,6 +7,11 @@ import org.junit.Test;
 import com.frizhard.calculator.client.CalculatorFSM;
 import com.frizhard.calculator.client.Constants;
 
+/**
+ * Tests unitarios para la FSM de calculadora
+ * 
+ * @author jose
+ */
 public class CalculatorFSMTests {
 
 	@Test

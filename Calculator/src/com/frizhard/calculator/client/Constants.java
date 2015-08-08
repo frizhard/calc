@@ -3,7 +3,15 @@ package com.frizhard.calculator.client;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class Constants {
+/**
+ * Constantes y símbolos
+ * 
+ * Ver tests unitarios en ConstantsTests
+ * 
+ * @author jose
+ */
+
+public abstract class Constants {
 	
 	public enum InputType {
 		COMMAND,

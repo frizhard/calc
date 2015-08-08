@@ -8,6 +8,12 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+/**
+ * Clase que modela una petición de conversión a binario y es posible guardar en el DataStore.
+ * 
+ * @author jose
+ */
+
 @PersistenceCapable
 public class BinaryRequest {
 	@PrimaryKey

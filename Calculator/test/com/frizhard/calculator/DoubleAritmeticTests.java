@@ -7,6 +7,11 @@ import org.junit.Test;
 import com.frizhard.calculator.client.Constants;
 import com.frizhard.calculator.client.DoubleAritmetic;
 
+/**
+ * Tests unitarios para las operaciones aritméticas
+ * 
+ * @author jose
+ */
 public class DoubleAritmeticTests {
 
 	@Test

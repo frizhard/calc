@@ -1,10 +1,17 @@
 package com.frizhard.calculator.client;
 
+/**
+ * Implementación del interface Aritmetic, convirtiendo los números a doubles antes de operar y
+ * volviendo a convertir el resultado a cadena.
+ * 
+ * Ver tests unitarios en DoubleAritmeticTests
+ * 
+ * @author jose
+ */
 public class DoubleAritmetic implements Aritmetic {
 
 	@Override
 	public String operate(String operand1, String operator, String operand2) {
-		// TODO Auto-generated method stub
 		double op1 = 0.0;
 		double op2 = 0.0;
 		try {

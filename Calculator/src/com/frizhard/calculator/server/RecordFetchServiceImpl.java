@@ -10,6 +10,13 @@ import javax.jdo.Query;
 import com.frizhard.calculator.client.RecordFetchService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * Extrae los registros del DataStore y los devuelve como una cadena HTML, en la que
+ * cada registro es un párrafo HTML. Este HTML se visualiza después en el cliente.
+ * 
+ * @author jose
+ */
+
 @SuppressWarnings("serial")
 public class RecordFetchServiceImpl extends RemoteServiceServlet implements
 		RecordFetchService {

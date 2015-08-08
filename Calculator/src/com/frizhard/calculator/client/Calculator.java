@@ -11,6 +11,19 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.form.TextField;
 
 /**
+ * "Controlador" de la aplicación.
+ * 
+ * La calculadora se ha modelado como una máquina de estados finitos (FSM, Finite State Machine)
+ * Al iniciar, se crea la FSM de la calculadora, y se crea el layout que interactúa con la FSM.
+ * La FSM acepta por parámetro un delegado cuando se crea, que será quien reciba notificaciones
+ * sobre los cambios de la pantalla, y de esta forma se desacopla la calculadora de la salida por
+ * pantalla.
+ * 
+ * Una variante más limpia sería con programación reactiva, pero desconozco las APIs de Java
+ * para hacerlo, así que he seguido el patrón Delegado.
+ */
+
+/**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Calculator implements EntryPoint {

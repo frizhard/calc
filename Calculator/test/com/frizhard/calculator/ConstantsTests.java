@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import com.frizhard.calculator.client.Constants;
 
+/**
+ * Tests unitarios para las constantes
+ * 
+ * @author jose
+ */
 public class ConstantsTests {
 
 	@Test

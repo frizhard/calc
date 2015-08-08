@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import com.frizhard.calculator.server.NumericBinaryConverter;
 
+/**
+ * Tests unitarios para la conversión a binario
+ * 
+ * @author jose
+ */
 public class NumericBinaryConverterTests {
 
 	@Test

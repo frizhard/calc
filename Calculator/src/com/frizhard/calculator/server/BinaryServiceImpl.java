@@ -7,6 +7,11 @@ import javax.jdo.PersistenceManagerFactory;
 import com.frizhard.calculator.client.BinaryService;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+/**
+ * Convierte un número a binario y guarda la conversión en el DataStore usando JDO
+ * 
+ * @author jose
+ */
 @SuppressWarnings("serial")
 public class BinaryServiceImpl extends RemoteServiceServlet implements
 		BinaryService {

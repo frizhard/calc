@@ -1,5 +1,14 @@
 package com.frizhard.calculator.client;
 
+/**
+ * Máquina de estados finitos que reconoce números.
+ * 
+ * Se le pasan como entrada cadenas de texto, de las especificadas en Constants.
+ * 
+ * Ver tests unitarios en NumberFSMTests
+ * 
+ * @author jose
+ */
 public class NumberFSM implements FSM<String> {
 
 	enum State {
@@ -8,14 +17,12 @@ public class NumberFSM implements FSM<String> {
 		DECIMAL,
 	}
 	
-	// TODO: state
 	private String number = Constants.Digit0;
 	private String signum = Constants.SignumPositive;
 	private State state = State.ZERO;
 	
 	@Override
 	public void reset() {
-		// TODO: reset state
 		number = Constants.Digit0;
 		signum = Constants.SignumPositive;
 		state = State.ZERO;
@@ -50,7 +57,6 @@ public class NumberFSM implements FSM<String> {
 		return signum + number;
 	}
 	
-	// TODO: these methods modify state. Refactor to return the new state in order to be testable
 	private boolean feedDigit(String digit) {
 		if(state != State.ZERO) {
 			number = number + digit;

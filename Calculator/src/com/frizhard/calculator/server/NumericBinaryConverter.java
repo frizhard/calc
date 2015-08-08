@@ -5,6 +5,13 @@ import java.util.regex.Pattern;
 
 import com.frizhard.calculator.client.Constants;
 
+/**
+ * Convierte una cadena de texto representando un número a binario. Internamente usa
+ * enteros y doubles, por lo que no tiene precisión infinita.
+ * 
+ * @author jose
+ */
+
 public class NumericBinaryConverter implements BinaryConverter {
 
 	@Override
