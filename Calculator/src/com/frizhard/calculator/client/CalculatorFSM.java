@@ -59,16 +59,18 @@ public class CalculatorFSM implements FSM<String> {
 					state = State.WAITING_INPUT;
 				}
 			} else if (input.equals(Constants.CommandEqual)) {
-				if(state != State.AFTER_PERCENT) {
-					output = aritmetic.operate(accumulated, operator, numericInput.value());
-				} else {
-					output = aritmetic.operate(accumulated, operator, output);
+				if (state != State.AFTER_EQUAL) {
+					if(state != State.AFTER_PERCENT) {
+						output = aritmetic.operate(accumulated, operator, numericInput.value());
+					} else {
+						output = aritmetic.operate(accumulated, operator, output);
+					}
+					accumulated = null;
+					operator = null;
+					numericInput.reset();
+					setOutput(output);
+					state = output.equals(Constants.Error) ? State.AFTER_ERROR : State.AFTER_EQUAL;
 				}
-				accumulated = null;
-				operator = null;
-				numericInput.reset();
-				setOutput(output);
-				state = output.equals(Constants.Error) ? State.AFTER_ERROR : State.AFTER_EQUAL;
 			}
 			break;
 			

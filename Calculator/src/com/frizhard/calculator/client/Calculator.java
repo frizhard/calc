@@ -1,20 +1,11 @@
 package com.frizhard.calculator.client;
 
-import java.util.List;
-
-import com.frizhard.calculator.server.BinaryRequest;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.InlineHTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.sencha.gxt.data.shared.ListStore;
-import com.sencha.gxt.widget.core.client.ListView;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.form.TextField;
@@ -50,7 +41,6 @@ public class Calculator implements EntryPoint {
 			
 			@Override
 			public void outputDidChangeTo(String output) {
-				// TODO Auto-generated method stub
 				screenText.setText(output);
 			}
 		});
@@ -148,7 +138,6 @@ public class Calculator implements EntryPoint {
 			}
 		});
 
-		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		RootPanel.get("calcScreenContainer").add(screenText);
 		RootPanel.get("calcCContainer").add(clearButton);
@@ -202,7 +191,7 @@ public class Calculator implements EntryPoint {
 					
 					@Override
 					public void onFailure(Throwable caught) {
-						recordsLabel.setText("Error obteniendo registros");
+						recordsLabel.setText(SERVER_ERROR);
 					}
 				});
 			}

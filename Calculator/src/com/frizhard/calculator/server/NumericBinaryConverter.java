@@ -22,7 +22,7 @@ public class NumericBinaryConverter implements BinaryConverter {
 		if(matcher.find()) {
 			String signum = matcher.group(1);
 			String integral = matcher.group(2);
-			String comma = matcher.group(3);
+			//String comma = matcher.group(3);
 			String fractional = matcher.group(4);
 			
 			boolean isNegative = (signum.length() > 0);

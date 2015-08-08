@@ -16,6 +16,8 @@ public class DoubleAritmetic implements Aritmetic {
 		
 		if(operand1 == null && operator == null && operand2 != null) {
 			return new String(operand2);
+		} else if(operand2 == null) {
+			return Constants.Error;
 		}
 		
 		if(op2 == 0.0 && operator.equals(Constants.OperatorDivision)) {
@@ -36,7 +38,13 @@ public class DoubleAritmetic implements Aritmetic {
 				return Constants.Error;
 			}
 			
-			return ("" + result).replace(Constants.AritmeticDot, Constants.ModifierDot);
+			double floorResult = Math.floor(result); 
+			if(result == floorResult) {
+				int intResult = (int)floorResult;
+				return ("" + intResult);
+			} else {
+				return ("" + result).replace(Constants.AritmeticDot, Constants.ModifierDot);
+			}
 		}
 	}
 

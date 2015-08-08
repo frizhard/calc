@@ -16,6 +16,7 @@ public class DoubleAritmeticTests {
 		assertTrue(op.operate(null, null, "1").equals("1"));
 	}
 	
+	@Test
 	public void testIntegerArithmetic() {
 		DoubleAritmetic op = new DoubleAritmetic();
 		
@@ -25,15 +26,17 @@ public class DoubleAritmeticTests {
 		assertTrue(op.operate("20", Constants.OperatorDivision, "5").equals("4"));
 	}
 	
+	@Test
 	public void testDoubleArithmetic() {
 		DoubleAritmetic op = new DoubleAritmetic();
 		
 		assertTrue(op.operate("20,78", Constants.OperatorSum, "5,").equals("25,78"));
-		assertTrue(op.operate("3,001", Constants.OperatorSubtract, "10,002").equals("-7,001"));
-		assertTrue(op.operate("7,12", Constants.OperatorMultiply, "-8,45").equals("-60,184"));
+		assertTrue(op.operate("3,001", Constants.OperatorSubtract, "10,002").equals("-7,001000000000001"));	// double arithmetic may have precission errors
+		assertTrue(op.operate("7,12", Constants.OperatorMultiply, "-8,45").equals("-60,163999999999994"));
 		assertTrue(op.operate("100,5", Constants.OperatorDivision, "2,5").equals("40,2"));
 	}
 	
+	@Test
 	public void testErrors() {
 		DoubleAritmetic op = new DoubleAritmetic();
 		

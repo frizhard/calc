@@ -1,6 +1,5 @@
 package com.frizhard.calculator.server;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.JDOHelper;
@@ -25,6 +24,7 @@ public class RecordFetchServiceImpl extends RemoteServiceServlet implements
 		String dev = null;
 		
 		try {
+			@SuppressWarnings("unchecked")
 			List<BinaryRequest> results = (List<BinaryRequest>) q.execute();
 			
 			StringBuffer composedResult = new StringBuffer();
